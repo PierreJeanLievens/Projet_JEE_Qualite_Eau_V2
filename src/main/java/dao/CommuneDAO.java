@@ -13,14 +13,16 @@ public class CommuneDAO {
     private Connection connection;
     
     public CommuneDAO() {
-        try {
-            dbConnect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
     
     private void dbConnect() throws SQLException {
+    	try {
+            // Charge explicitement le pilote JDBC pour MySQL
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    	
         String url = "jdbc:mysql://localhost:3306/qualite_eau";
         String user = "root";
         String password = "root";
@@ -34,7 +36,9 @@ public class CommuneDAO {
     }
     
     public ArrayList<Commune> getAllResultats(String nom_commune) throws SQLException {
-        ArrayList<Commune> communes = new ArrayList<>();
+        
+    	dbConnect();
+    	ArrayList<Commune> communes = new ArrayList<>();
         PrelevementDAO prelevementDao = new PrelevementDAO();
         String query = "SELECT * FROM commune WHERE nom_commune LIKE ?";
 
@@ -57,17 +61,15 @@ public class CommuneDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-        	dbClose();
         }
-        
+        dbClose();
         return communes;
         
     }
     
     public ArrayList<String> getAllCommunesNames(String nom_commune)throws SQLException{
+    	dbConnect();
     	ArrayList<String> listCommunes= new ArrayList<>();
-        PrelevementDAO prelevementDao = new PrelevementDAO();
         String query = "SELECT nom_commune FROM commune WHERE nom_commune LIKE ?";
 
         

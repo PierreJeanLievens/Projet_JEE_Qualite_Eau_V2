@@ -9,4 +9,24 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>SearchServlet</display-name>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>servlet.SearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/SearchServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CommuneSearchServlet</display-name>
+    <servlet-name>CommuneSearchServlet</servlet-name>
+    <servlet-class>servlet.CommuneSearchServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CommuneSearchServlet</servlet-name>
+    <url-pattern>/CommuneSearchServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
