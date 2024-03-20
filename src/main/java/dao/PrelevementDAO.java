@@ -13,9 +13,9 @@ public class PrelevementDAO {
     private Connection connection;
     
     public PrelevementDAO() {
-        try {
-            dbConnect();
-        } catch (SQLException e) {
+    	try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -64,6 +64,7 @@ public class PrelevementDAO {
     }
     
     public ArrayList<Prelevement> getPrelevements(String nom_commune) throws SQLException {
+    	dbConnect();
         ArrayList<Prelevement> prelevements = new ArrayList<>();
         ResultatDAO resultatDao = new ResultatDAO();
         String query = "SELECT DISTINCT prelevement.*\r\n"

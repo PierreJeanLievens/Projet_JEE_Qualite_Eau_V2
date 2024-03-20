@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+  #nomCommuneInput, #communeDropdownContainer {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 300px; /* Ajustez selon vos besoins */
+  }
+  select {
+    width: 100%;
+  }

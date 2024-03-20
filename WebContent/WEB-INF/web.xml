@@ -29,4 +29,14 @@
     <servlet-name>CommuneSearchServlet</servlet-name>
     <url-pattern>/CommuneSearchServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchPrelevementServlet</display-name>
+    <servlet-name>SearchPrelevementServlet</servlet-name>
+    <servlet-class>servlet.SearchPrelevementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchPrelevementServlet</servlet-name>
+    <url-pattern>/SearchPrelevementServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

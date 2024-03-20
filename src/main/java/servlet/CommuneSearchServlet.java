@@ -1,11 +1,16 @@
 package servlet;
 
+import java.util.ArrayList;
+import dao.CommuneDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+
 import jakarta.servlet.http.Cookie;
 /**
  * Servlet implementation class CommuneSearchServlet
@@ -33,20 +38,24 @@ public class CommuneSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Récupérer la valeur du champ nomCommune du formulaire
-        String nomCommune = request.getParameter("nomCommune");
-        
-        // Créer un cookie avec la valeur de nomCommune
-        Cookie cookie = new Cookie("NameCommune", nomCommune);
-        
-        // Définir la durée de vie du cookie (en secondes)
-        cookie.setMaxAge(3600); // Par exemple, 1 heure
-        
-        // Ajouter le cookie à la réponse
-        response.addCookie(cookie);
-        
-        // Rediriger vers la page index.jsp
-        response.sendRedirect("index.jsp");
-    }
+		  response.setContentType("text/html;charset=UTF-8");
+		  String nomCommune = request.getParameter("nomCommune");
+		  CommuneDAO communeDao = new CommuneDAO();
+		  ArrayList<String> listCommunes = new ArrayList<>();
+		  try {
+		    listCommunes = communeDao.getAllCommunesNames(nomCommune);
+		  } catch (SQLException e) {
+		    e.printStackTrace();
+		  }
+		  PrintWriter out = response.getWriter();
+		  out.println("<select id='communeDropdown' onchange='selectCommune()'>");
+		  for (String commune : listCommunes) {
+		    out.println("<option value='" + commune + "'>" + commune + "</option>");
+		  }
+		  out.println("</select>");
+		}
+
+
+
 
 }
