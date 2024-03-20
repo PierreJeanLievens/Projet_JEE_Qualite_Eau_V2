@@ -70,7 +70,7 @@ public class CommuneDAO {
     public ArrayList<String> getAllCommunesNames(String nom_commune)throws SQLException{
     	dbConnect();
     	ArrayList<String> listCommunes= new ArrayList<>();
-        String query = "SELECT nom_commune FROM commune WHERE nom_commune LIKE ?";
+        String query = "SELECT DISTINCT nom_commune FROM commune WHERE nom_commune LIKE ?";
 
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {

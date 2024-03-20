@@ -23,6 +23,15 @@ public class Prelevement {
 		this.conclusion = conclusion;
 		this.ListResultats = ListResultat;
 	}
+	
+	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion) {
+		this.insee_commune = insee_commune;
+		this.reference_prelevement = reference_prelevement;
+		this.cd_dept = cd_dept;
+		this.cd_reseau = cd_reseau;
+		this.date = date;
+		this.conclusion = conclusion;
+	}
 
 	public String getInsee_commune() {
 		return insee_commune;

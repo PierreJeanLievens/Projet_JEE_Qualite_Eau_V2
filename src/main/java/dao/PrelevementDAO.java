@@ -63,5 +63,37 @@ public class PrelevementDAO {
         
     }
     
+    public ArrayList<Prelevement> getPrelevements(String nom_commune) throws SQLException {
+        ArrayList<Prelevement> prelevements = new ArrayList<>();
+        ResultatDAO resultatDao = new ResultatDAO();
+        String query = "SELECT DISTINCT prelevement.*\r\n"
+        		+ "FROM prelevement\r\n"
+        		+ "INNER JOIN commune ON prelevement.insee_commune = commune.insee_commune\r\n"
+        		+ "WHERE commune.nom_commune = ?;";
+        
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        	statement.setString(1, nom_commune);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Prelevement prelevement = new Prelevement(
+                	resultSet.getString("insee_commune"),
+                    resultSet.getString("reference_prelevement"),
+                    resultSet.getString("cd_dept"),
+                    resultSet.getString("cd_reseau"),
+                    resultSet.getDate("date"),
+                    resultSet.getString("conclusion")
+                );
+                prelevements.add(prelevement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dbClose();
+        
+        return prelevements;
+        
+    }
+    
     // Vous pouvez ajouter d'autres méthodes (addResultat, updateResultat, deleteResultat) ici
 }

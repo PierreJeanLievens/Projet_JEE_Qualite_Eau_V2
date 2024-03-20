@@ -1,55 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="dao.CommuneDAO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Formulaire de recherche</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+		$(document).ready(function() {
+		    $('#nomCommune').on('keyup', function() {
+		        var inputVal = $(this).val();
+		        if(inputVal.length > 0) {
+		            $.ajax({
+		                url: 'getSuggestions.jsp',
+		                type: 'GET',
+		                data: { 'nomCommune': inputVal },
+		                success: function(response) {
+		                    $('#suggestions').html(response);
+		                    $('#suggestions p').on('click', function() {
+		                        var selectedCommune = $(this).text();
+		                        $('#nomCommune').val(selectedCommune);
+		                        $('#suggestions').html('');
+		
+		                        // Effectuer une requête AJAX pour obtenir les prélèvements et les afficher
+		                        $.ajax({
+		                            url: 'getPrelevements.jsp', // Pointe vers votre JSP ou Servlet qui retourne les prélèvements
+		                            type: 'GET',
+		                            data: { 'nomCommune': selectedCommune },
+		                            success: function(data) {
+		                                // Afficher les données dans un élément de votre choix
+		                                $('#prelevementsContainer').html(data);
+		                            }
+		                        });
+		                    });
+		                }
+		            });
+		        } else {
+		            $('#suggestions').html('');
+		        }
+		    });
+		});
+	</script>
+
+
 </head>
 <body>
-<% 
-    response.setContentType("text/html");
-    List<String> nomCommunes = new ArrayList<String>();
-    CommuneDAO dao = new CommuneDAO();
-    Cookie[] cookies = request.getCookies();
-    String nomCommune = null;
-    if(cookies != null) {
-        for (Cookie cookie : cookies) {
-            if ("NameCommune".equals(cookie.getName())) {
-                nomCommune = cookie.getValue();
-                break;
-            }
-        }
-    }
-    if (nomCommune == null) {
-        // This is the user's first visit or no country was selected before
-        nomCommunes = null;
-        
-    }else{
-        nomCommunes = dao.getAllCommunesNames(nomCommune);
-    }
-%>
-
-<h2>Formulaire de recherche</h2>
-<form action="CommuneSearchServlet" method="post">
-    <label for="nomCommune">Nom de la commune :</label>
-    <input type="text" id="nomCommune" name="nomCommune" value="<%= nomCommune %>">
-    <br><br>
-    <label for="menuDeroulant">Commune :</label>
-    <select id="menuDeroulant" name="menuDeroulant">
-        <% 
-            if (nomCommunes != null) {
-                for (String commune : nomCommunes) {
-                    out.println("<option value=\"" + commune + "\">" + commune + "</option>");
-                }
-            }
-        %>
-    </select>
-    <br><br>
-    <input type="submit" value="Rechercher">
-</form>
-
+    <h2>Formulaire de recherche</h2>
+    <input type="text" id="nomCommune" name="nomCommune" autocomplete="off">
+    <div id="suggestions"></div>
+    <div id="prelevementsContainer"></div>
+    
 </body>
 </html>
