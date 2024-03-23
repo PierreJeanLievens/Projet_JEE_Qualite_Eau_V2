@@ -41,7 +41,10 @@ public class PrelevementDAO {
     public ArrayList<Prelevement> getAllResultats(String insee_commune, String cd_reseau) throws SQLException {
         ArrayList<Prelevement> prelevements = new ArrayList<>();
         ResultatDAO resultatDao = new ResultatDAO(this.connection);
-        String query = "SELECT * FROM prelevement WHERE insee_commune=? AND cd_reseau=?;";
+        String query = "SELECT *\r\n"
+        		+ "FROM prelevement\r\n"
+        		+ "WHERE insee_commune = ? AND cd_reseau = ?\r\n"
+        		+ "ORDER BY date DESC, heure DESC;";
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, insee_commune);

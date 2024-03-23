@@ -61,7 +61,9 @@ public class SearchPrelevementServlet extends HttpServlet {
     	CommuneDAO communeDAO = new CommuneDAO();
     	ArrayList<Commune> communes = new ArrayList<>();
     	String val_Teau;
+    	String unite_Teau;
     	String val_PH;
+    	String unite_PH;
     	try {
     		communes = communeDAO.getAllCommunesByName(selectedCommune);
     	  } catch (SQLException e) {
@@ -69,16 +71,21 @@ public class SearchPrelevementServlet extends HttpServlet {
     	  }
     	PrintWriter out = response.getWriter();
   	  int index = 0;
+  	  out.println("<h4>Recherche effectuée : " + selectedCommune +"</h4>");
   	  for (Commune commune : communes) {
   	    for (Prelevement prelevement : commune.getListPrelevements()) {
-  	        val_Teau = "Pas de valeur";
-  	        val_PH = "Pas de valeur";
+  	        val_Teau = "Pas de valeur enregistrée";
+  	        unite_Teau = "";
+  	        val_PH = "Pas de valeur enregistrée";
+  	        unite_PH = "";
   	        for (Resultat resultat : prelevement.getListResultats()) {
   	            if ("TEAU".equals(resultat.getCd_sise())) {
   	                val_Teau = resultat.getValeur_string();
+  	                unite_Teau = resultat.getUnite();
   	            }
   	            if ("PH".equals(resultat.getCd_sise())) {
   	                val_PH = resultat.getValeur_string();
+  	                unite_PH = resultat.getUnite();
   	            }
   	        }
   	        out.println("<div class='accordion-item'>");
@@ -88,7 +95,27 @@ public class SearchPrelevementServlet extends HttpServlet {
   	        out.println("</button></h2>");
   	        out.println("<div id='collapse" + index + "' class='accordion-collapse collapse " + (index == 0 ? "show" : "") + "' aria-labelledby='heading" + index + "' data-bs-parent='#prelevementAccordion'>");
   	        out.println("<div class='accordion-body'>");
-  	        out.println("<strong>Code INSEE :</strong> " + prelevement.getInsee_commune() + "<br><strong>Code Réseau :</strong> " + prelevement.getCd_reseau() + "<br><strong>Nom de la commune :</strong> " + commune.getNom_commune() + "<br><strong>Nom du quartier :</strong> " + commune.getQuartier() + "<br><strong>Code ID du réseau :</strong> " + commune.getCd_reseau() + "<br><strong>Nom du réseau :</strong> " + commune.getNom_reseau() + "<br><strong>Date de début d'alimentation :</strong> " + commune.getDebut_alim() + "<br><strong>Détail de l'eau :</strong> " + prelevement.getConclusion() + "<br><strong>Température de l'eau :</strong> " + val_Teau + "<br><strong>Valeur du PH :</strong> " + val_PH);
+  	        out.println("  <div style='display: flex;'>");
+	  	    out.println("    <!-- Colonne 1 -->");
+	  	    out.println("    <div style='flex: 1; padding-right: 10px;'>");
+	  	    out.println("      <strong>Code INSEE :</strong> " + prelevement.getInsee_commune() + "<br>");
+	  	    out.println("      <strong>Code Réseau :</strong> " + prelevement.getCd_reseau() + "<br>");
+	  	    out.println("      <strong>Nom du quartier :</strong> " + commune.getQuartier() + "<br><br>");
+	  	    out.println("  	   <strong>Température de l'eau :</strong> " + val_Teau + " "+ unite_Teau +"<br>");
+	  	    out.println("    </div>");
+	  	    out.println("    ");
+	  	    out.println("    <!-- Colonne 2 -->");
+	  	    out.println("    <div style='flex: 1; padding-left: 10px;'>");
+	  	    out.println("      <strong>Nom de la commune :</strong> " + commune.getNom_commune() + "<br>");
+	  	    out.println("      <strong>Nom du réseau :</strong> " + commune.getNom_reseau()+ "<br>");
+	  	    out.println("      <strong>Date de début d'alimentation :</strong> " + commune.getDebut_alim() + "<br><br>");
+	  	    out.println("  	   <strong>Valeur du PH :</strong> " + val_PH + " "+ unite_PH + "<br>");
+	  	    out.println("    </div>");
+	  	    out.println("  </div>");
+	  	    out.println("  <!-- Elements en dessous des deux colonnes -->");
+	  	 
+	  	    out.println("  <br><strong>Détail de l'eau :</strong> " + prelevement.getConclusion() + "<br>");
+	  	    out.println("</div>");
   	        out.println("</div></div></div>");
   	        index++;
   	    }

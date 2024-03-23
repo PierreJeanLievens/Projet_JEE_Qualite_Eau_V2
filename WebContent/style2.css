@@ -1,10 +1,12 @@
 body {
-       background-color: #f9f9f9;
-      }
+background-color: black;
+}
+      
 #nomCommuneInput, #communeDropdownContainer {
     display: inline-block;
     vertical-align: top;
     width: auto; /* Ajustez selon vos besoins */
+    min-width : 300px;
   }
   select {
     width: 100%;
@@ -13,8 +15,12 @@ body {
   #div_form {
    	position: sticky;
   	top: 0;
-    
-  }
+  }    
+#prelevementAccordion{
+	margin : 20px;
+	border : 2px solid #f9f9f9;
+	}
+  
   h4{
   	text-align : center;
   	}
@@ -25,5 +31,4 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	 background-color: #f9f9f9; /* Couleur de fond proche du blanc */
         }

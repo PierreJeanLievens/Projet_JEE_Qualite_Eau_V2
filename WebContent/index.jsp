@@ -5,6 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Recherche de Communes</title>
 <link href="style.css" rel="stylesheet" />
+<link href="style1.css" rel="stylesheet" />
+<link href="style2.css" rel="stylesheet" />
+
 <!-- Inclusion de Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -41,15 +44,20 @@ function selectCommune() {
 	}
 
 </script>
-
+<style>
+      body {
+        background-color: #f9f9f9f9;
+      }
+    </style>
 </head>
 <body>
 <h2 class="text-align-center justify-content-center">Recherche de Commune</h2>
 <div class="container">
-<div id=div_form>
-<input type="text" placeholder="Recherchez une commune" id="nomCommuneInput" name="nomCommune">
+
+<input type="text" placeholder="Recherchez une commune" id="nomCommuneInput" name="nomCommune" class="form-control">
 <div id="communeDropdownContainer"></div>
 </div>
-<div class="accordion" id="prelevementAccordion"></div></div>
+<hr>
+<div class="accordion accordion-flush" id="prelevementAccordion"></div>
 </body>
 </html>
