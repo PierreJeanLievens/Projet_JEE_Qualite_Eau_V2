@@ -1,9 +1,23 @@
-@charset "ISO-8859-1";
-  #nomCommuneInput, #communeDropdownContainer {
+#nomCommuneInput, #communeDropdownContainer {
     display: inline-block;
     vertical-align: top;
-    max-width: 300px; /* Ajustez selon vos besoins */
+    max-width: 4000px; /* Ajustez selon vos besoins */
   }
   select {
     width: 100%;
   }
+  
+  #div_form {
+   	position: sticky;
+  	top: 0;
+    
+  }
+  h2 {
+	text-align: center;
+        }
+  .container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	 background-color: #f9f9f9; /* Couleur de fond proche du blanc */
+        }

@@ -13,11 +13,11 @@ public class CommuneDAO {
     private Connection connection;
     
     public CommuneDAO() {
+   
     }
     
     private void dbConnect() throws SQLException {
     	try {
-            // Charge explicitement le pilote JDBC pour MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -35,16 +35,16 @@ public class CommuneDAO {
         }
     }
     
-    public ArrayList<Commune> getAllResultats(String nom_commune) throws SQLException {
+    public ArrayList<Commune> getAllCommunesByName(String nom_commune) throws SQLException {
         
     	dbConnect();
     	ArrayList<Commune> communes = new ArrayList<>();
-        PrelevementDAO prelevementDao = new PrelevementDAO();
-        String query = "SELECT * FROM commune WHERE nom_commune LIKE ?";
+        PrelevementDAO prelevementDao = new PrelevementDAO(this.connection);
+        String query = "SELECT * FROM commune WHERE nom_commune = ?";
 
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-        	statement.setString(1, "%" + nom_commune + "%");
+        	statement.setString(1,nom_commune );
             ResultSet resultSet = statement.executeQuery();
             
             while (resultSet.next()) {
@@ -60,7 +60,7 @@ public class CommuneDAO {
                 communes.add(commune);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+        	throw new RuntimeException("uncaught", e) ;
         }
         dbClose();
         return communes;
@@ -82,10 +82,8 @@ public class CommuneDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-        	dbClose();
-        }
-        
+        } 
+        dbClose();
         return listCommunes;
         
     }

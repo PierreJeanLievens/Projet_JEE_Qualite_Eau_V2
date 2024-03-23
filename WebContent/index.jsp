@@ -44,9 +44,12 @@ function selectCommune() {
 
 </head>
 <body>
-<h2>Recherche de Commune</h2>
-<input type="text" id="nomCommuneInput" name="nomCommune">
+<h2 class="text-align-center justify-content-center">Recherche de Commune</h2>
+<div class="container">
+<div id=div_form>
+<input type="text" placeholder="Recherchez une commune" id="nomCommuneInput" name="nomCommune">
 <div id="communeDropdownContainer"></div>
-<div class="accordion" id="prelevementAccordion"></div>
+</div>
+<div class="accordion" id="prelevementAccordion"></div></div>
 </body>
 </html>

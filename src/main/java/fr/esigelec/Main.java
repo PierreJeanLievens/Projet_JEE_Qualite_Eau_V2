@@ -12,12 +12,12 @@ import dao.CommuneDAO;
 public class Main {
 
 	public static void main(String[] args) throws SQLException {
-		
+		long startTime = System.currentTimeMillis();
 		PrelevementDAO prelevementDao = new PrelevementDAO();
 		ArrayList<Resultat> resultats;
 		ArrayList<Prelevement> prelevements;
 		CommuneDAO communeDao = new CommuneDAO();
-		/*ArrayList<Commune> communes = communeDao.getAllResultats("Berville");
+		ArrayList<Commune> communes = communeDao.getAllCommunesByName("LA ROCHELLE");
 		for (Commune commune : communes) {
 		    System.out.println("\nNom : " + commune.getNom_commune());
 		    prelevements = commune.getListPrelevements();
@@ -25,12 +25,12 @@ public class Main {
 		        System.out.println("\nPrelevement : ");
 		        resultats = prelevement.getListResultats();
 		    }
-		}*/
-		long startTime = System.currentTimeMillis();
-		ArrayList<String> listCommunes = communeDao.getAllCommunesNames("Berville");
+		}
+		
+		/*ArrayList<String> listCommunes = communeDao.getAllCommunesNames("Berville");
 		for(String commune : listCommunes) {
 			System.out.println(commune);
-		}
+		}*/
 
 		long endTime = System.currentTimeMillis();
 		long executionTime = endTime - startTime;

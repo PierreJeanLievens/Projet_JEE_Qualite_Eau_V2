@@ -10,32 +10,18 @@ import Model.Resultat;
 
 public class ResultatDAO {
     
-    private Connection connection;
-    
-    public ResultatDAO() {
-        try {
-            dbConnect();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void dbConnect() throws SQLException {
-        String url = "jdbc:mysql://localhost:3306/qualite_eau";
-        String user = "root";
-        String password = "root";
-        connection = DriverManager.getConnection(url, user, password);
-    }
+	 private Connection connection;
 
-    private void dbClose() throws SQLException {
-        if (connection != null && !connection.isClosed()) {
-            connection.close();
-        }
-    }
-    
+	    public ResultatDAO(Connection connection) {
+	        this.connection = connection;
+	    }
+ 
     public ArrayList<Resultat> getAllResultats(String reference_prelevement) throws SQLException {
         ArrayList<Resultat> resultats = new ArrayList<>();
-        String query = "SELECT * FROM resultat WHERE reference_prelevement=?;";
+        String query = "SELECT *\r\n"
+        		+ "FROM resultat\r\n"
+        		+ "WHERE reference_prelevement = ? AND (cd_sise = 'TEAU' OR cd_sise = 'PH');\r\n"
+        		+ "";
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, reference_prelevement);

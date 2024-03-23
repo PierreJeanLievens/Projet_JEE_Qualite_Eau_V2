@@ -49,10 +49,12 @@ public class CommuneSearchServlet extends HttpServlet {
 		  }
 		  PrintWriter out = response.getWriter();
 		  out.println("<select id='communeDropdown' onchange='selectCommune()'>");
+		  out.println("<option selected disabled>Choisissez votre commune</option>");
 		  for (String commune : listCommunes) {
-		    out.println("<option value='" + commune + "'>" + commune + "</option>");
+		      out.println("<option value='" + commune + "'>" + commune + "</option>");
 		  }
 		  out.println("</select>");
+
 		}
 
 
