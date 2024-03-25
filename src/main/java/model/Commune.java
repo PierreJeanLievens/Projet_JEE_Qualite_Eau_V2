@@ -1,10 +1,14 @@
-package Model;
+package model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author PIERRE-JEAN
+ * Class Commune
+ */
 public class Commune {
-	
+
 	private int id;
 	private String insee_commune;
 	private String nom_commune;
@@ -13,7 +17,18 @@ public class Commune {
 	private String nom_reseau;
 	private Date debut_alim;
 	private ArrayList<Prelevement> ListPrelevements;
-	
+
+	 /**
+     * Constructor for the Commune class.
+     *
+     * @param insee_commune   The INSEE code of the commune.
+     * @param nom_commune     The name of the commune.
+     * @param quartier        The district of the commune.
+     * @param cd_reseau       The code of the commune's network.
+     * @param nom_reseau      The name of the commune's network.
+     * @param debut_alim      The date of the commencement of water supply to the commune.
+     * @param ListPrelevements    The list of samplings associated with the commune.
+     */
 	public Commune(String insee_commune, String nom_commune, String quartier, String cd_reseau, String nom_reseau, Date debut_alim, ArrayList<Prelevement> ListPrelevements) {
 		this.insee_commune = insee_commune;
 		this.nom_commune = nom_commune;
@@ -79,6 +94,6 @@ public class Commune {
 	public void setDebut_alim(Date debut_alim) {
 		this.debut_alim = debut_alim;
 	}
-	
+
 
 }

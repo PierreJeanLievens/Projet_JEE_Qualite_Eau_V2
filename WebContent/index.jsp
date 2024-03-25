@@ -13,10 +13,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+// fonction if the nomCommuneInput value change
 $(document).ready(function(){
   $('#nomCommuneInput').keyup(function(){
+	// get the value
     var nomCommune = $(this).val();
+	// if the value is not null
     if(nomCommune !== ''){
+    	// send data to the servlet, get the response and put it in the communeDropdownContainer
       $.ajax({
         url: 'CommuneSearchServlet',
         method: 'POST',
@@ -30,9 +34,11 @@ $(document).ready(function(){
     }
   });
 });
-
+// If a commune is selected
 function selectCommune() {
+	  // get the selected value
 	  var selectedCommune = $('#communeDropdown').val();
+	  // send data to the servlet, (this will get all communes) and put the data to the prelevementAccordion div
 	  $.ajax({
 	    url: 'SearchPrelevementServlet',
 	    method: 'GET',

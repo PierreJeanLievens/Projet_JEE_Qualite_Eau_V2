@@ -3,10 +3,10 @@ package fr.esigelec;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Model.Commune;
-import Model.Prelevement;
-import Model.Resultat;
 import dao.ResultatDAO;
+import model.Commune;
+import model.Prelevement;
+import model.Resultat;
 import dao.PrelevementDAO;
 import dao.CommuneDAO;
 public class Main {

@@ -13,6 +13,7 @@ import java.sql.SQLException;
 
 import jakarta.servlet.http.Cookie;
 /**
+ * @author PIERRE-JEAN
  * Servlet implementation class CommuneSearchServlet
  */
 public class CommuneSearchServlet extends HttpServlet {
@@ -39,17 +40,23 @@ public class CommuneSearchServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  response.setContentType("text/html;charset=UTF-8");
+		  // get the value of the input 
 		  String nomCommune = request.getParameter("nomCommune");
+		  // create CommuneDAO and list of String
 		  CommuneDAO communeDao = new CommuneDAO();
 		  ArrayList<String> listCommunes = new ArrayList<>();
+		  // get the list of all commune names
 		  try {
 		    listCommunes = communeDao.getAllCommunesNames(nomCommune);
 		  } catch (SQLException e) {
 		    e.printStackTrace();
 		  }
 		  PrintWriter out = response.getWriter();
+		  // add a select
 		  out.println("<select id='communeDropdown' class='form-select' onchange='selectCommune()'>");
+		  // this is the default choice
 		  out.println("<option selected disabled>Choisissez votre commune</option>");
+		  // for each commune name, add an option
 		  for (String commune : listCommunes) {
 		      out.println("<option value='" + commune + "'>" + commune + "</option>");
 		  }

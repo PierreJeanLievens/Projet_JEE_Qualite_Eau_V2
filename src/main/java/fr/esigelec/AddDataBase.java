@@ -13,7 +13,11 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import java.io.*;
-
+/**
+ * Class to add all data from CSV to SQL files
+ * @author PIERRE-JEAN
+ *
+ */
 public class AddDataBase {
     public static void main(String[] args) {
         String folderPath = "C:\\Users\\PIERRE-JEAN\\Downloads\\dis-2024-dept";
@@ -35,7 +39,11 @@ public class AddDataBase {
             }
         }
     }
-
+    /**
+     * Method to read a commune file and get the selected data
+     * @param fileInput
+     * @param fileOutput
+     */
     public static void AddCommunes(String fileInput, String fileOutput) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput, true));
              Reader reader = new FileReader(fileInput);
@@ -66,7 +74,11 @@ public class AddDataBase {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Method to read a prelevement file and get the selected data
+     * @param fileInput
+     * @param fileOutput
+     */
     public static void AddPrelevements(String fileInput, String fileOutput) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput, true));
              Reader reader = new FileReader(fileInput);
@@ -105,7 +117,11 @@ public class AddDataBase {
         }
     }
 
-
+    /**
+     * Method to read a resultat file and get the selected data
+     * @param fileInput
+     * @param fileOutput
+     */
     public static void AddResultats(String fileInput, String fileOutput) {
         boolean notFirstLineRequest = false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput, true));
@@ -149,7 +165,11 @@ public class AddDataBase {
         }
     }
 
-
+    /**
+     * Method to extract content between '()' char
+     * @param input
+     * @return
+     */
     private static String extractContentBetweenParentheses(String input) {
         int startIndex = input.indexOf("(");
         int endIndex = input.indexOf(")");

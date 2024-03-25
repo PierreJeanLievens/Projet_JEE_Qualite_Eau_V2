@@ -1,5 +1,9 @@
-package Model;
-
+package model;
+/**
+ *  Class Resultat
+ * @author PIERRE-JEAN
+ *
+ */
 public class Resultat {
 
 	private int id;
@@ -12,10 +16,23 @@ public class Resultat {
 	private String unite;
 	private String limite_qual;
 	private Double valeur_nombre;
-	
+
+	/**
+	 * CConstructor for the Resultat class
+	 * 
+	 * @param reference_prelevement
+	 * @param cd_sise
+	 * @param cd_parametre
+	 * @param parametre
+	 * @param qual_parametre
+	 * @param valeur_string
+	 * @param unite
+	 * @param limite_qual
+	 * @param valeur_nombre
+	 */
 	public Resultat(String reference_prelevement, String cd_sise, String cd_parametre, String parametre, Boolean qual_parametre, String valeur_string, String unite, String limite_qual, Double valeur_nombre ) {
-		
-	
+
+
 		this.reference_prelevement = reference_prelevement;
 		this.cd_sise = cd_sise;
 		this.cd_parametre = cd_parametre;
@@ -25,7 +42,7 @@ public class Resultat {
 		this.unite = unite;
 		this.limite_qual = limite_qual;
 		this.valeur_nombre = valeur_nombre;
-		
+
 	}
 
 	public String getReference_prelevement() {

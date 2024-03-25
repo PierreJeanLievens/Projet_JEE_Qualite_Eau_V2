@@ -1,10 +1,14 @@
-package Model;
+package model;
 
 import java.sql.Date;
 import java.util.ArrayList;
-
+/**
+ *  Class Prelevement
+ * @author PIERRE-JEAN
+ *
+ */
 public class Prelevement {
-	
+
 	private int id;
 	private String insee_commune;
 	private String reference_prelevement;
@@ -14,6 +18,17 @@ public class Prelevement {
 	private String conclusion;
 	private ArrayList<Resultat> ListResultats;
 
+	/**
+	 * Constructor for the Prelevement class
+	 * 
+	 * @param insee_commune
+	 * @param reference_prelevement
+	 * @param cd_dept
+	 * @param cd_reseau
+	 * @param date
+	 * @param conclusion
+	 * @param ListResultat
+	 */
 	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion, ArrayList<Resultat> ListResultat) {
 		this.insee_commune = insee_commune;
 		this.reference_prelevement = reference_prelevement;
@@ -23,7 +38,17 @@ public class Prelevement {
 		this.conclusion = conclusion;
 		this.ListResultats = ListResultat;
 	}
-	
+
+	/**
+	 * Constructor for the Prelevement class without the list
+	 * 
+	 * @param insee_commune
+	 * @param reference_prelevement
+	 * @param cd_dept
+	 * @param cd_reseau
+	 * @param date
+	 * @param conclusion
+	 */
 	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion) {
 		this.insee_commune = insee_commune;
 		this.reference_prelevement = reference_prelevement;
