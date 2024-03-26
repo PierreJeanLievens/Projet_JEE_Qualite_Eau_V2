@@ -2,6 +2,7 @@ package servlet;
 
 import dao.PrelevementDAO;
 import dao.CommuneDAO;
+import org.apache.commons.text.StringEscapeUtils;
 
 import java.util.ArrayList;
 import jakarta.servlet.ServletException;
@@ -77,7 +78,7 @@ public class SearchPrelevementServlet extends HttpServlet {
 		}
 		PrintWriter out = response.getWriter();
 		int index = 0;
-		out.println("<h4>Recherche effectuée : " + selectedCommune +"</h4>");
+		out.println("<h4>Recherche effectuée : " + StringEscapeUtils.escapeHtml4(selectedCommune) +"</h4>");
 		boolean displayNoData = true;
 		// for each COmmune
 		for (Commune commune : communes) {
@@ -108,7 +109,7 @@ public class SearchPrelevementServlet extends HttpServlet {
 				// display the title 
 				out.println("<h2 class='accordion-header' id='heading" + index + "'>");
 				out.println("<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse" + index + "' aria-expanded='true' aria-controls='collapse" + index + "'>");
-				out.println("<strong>Ville :</strong> " + selectedCommune + ", <strong>Date de prelevement :</strong> " + prelevement.getDate());
+				out.println("<strong>Ville :</strong> " +  StringEscapeUtils.escapeHtml4(selectedCommune) + ", <strong>Date de prelevement :</strong> " + prelevement.getDate());
 				out.println("</button></h2>");
 				out.println("<div id='collapse" + index + "' class='accordion-collapse collapse " + (index == 0 ? "show" : "") + "' aria-labelledby='heading" + index + "' data-bs-parent='#prelevementAccordion'>");
 				// display the body with the selected value
@@ -116,23 +117,23 @@ public class SearchPrelevementServlet extends HttpServlet {
 				out.println("  <div style='display: flex;'>");
 				out.println("    <!-- Colonne 1 -->");
 				out.println("    <div style='flex: 1; padding-right: 10px;'>");
-				out.println("      <strong>Code INSEE :</strong> " + prelevement.getInsee_commune() + "<br>");
-				out.println("      <strong>Code Réseau :</strong> " + prelevement.getCd_reseau() + "<br>");
-				out.println("      <strong>Nom du quartier :</strong> " + commune.getQuartier() + "<br><br>");
-				out.println("  	   <strong>Température de l'eau :</strong> " + val_Teau + " "+ unite_Teau +"<br>");
+				out.println("      <strong>Code INSEE :</strong> " + StringEscapeUtils.escapeHtml4(prelevement.getInsee_commune())  + "<br>");
+				out.println("      <strong>Code Réseau :</strong> " + StringEscapeUtils.escapeHtml4(prelevement.getCd_reseau())  + "<br>");
+				out.println("      <strong>Nom du quartier :</strong> " + StringEscapeUtils.escapeHtml4(commune.getQuartier())  + "<br><br>");
+				out.println("  	   <strong>Température de l'eau :</strong> " + StringEscapeUtils.escapeHtml4(val_Teau)  + " "+ StringEscapeUtils.escapeHtml4(unite_Teau)  +"<br>");
 				out.println("    </div>");
 				out.println("    ");
 				out.println("    <!-- Colonne 2 -->");
 				out.println("    <div style='flex: 1; padding-left: 10px;'>");
-				out.println("      <strong>Nom de la commune :</strong> " + commune.getNom_commune() + "<br>");
-				out.println("      <strong>Nom du réseau :</strong> " + commune.getNom_reseau()+ "<br>");
-				out.println("      <strong>Date de début d'alimentation :</strong> " + commune.getDebut_alim() + "<br><br>");
-				out.println("  	   <strong>Valeur du PH :</strong> " + val_PH + " "+ unite_PH + "<br>");
+				out.println("      <strong>Nom de la commune :</strong> " + StringEscapeUtils.escapeHtml4(commune.getNom_commune())  + "<br>");
+				out.println("      <strong>Nom du réseau :</strong> " + StringEscapeUtils.escapeHtml4(commune.getNom_reseau()) + "<br>");
+				out.println("      <strong>Date de début d'alimentation :</strong> " + commune.getDebut_alim()  + "<br><br>");
+				out.println("  	   <strong>Valeur du PH :</strong> " + StringEscapeUtils.escapeHtml4(val_PH) + " "+ StringEscapeUtils.escapeHtml4(unite_PH) + "<br>");
 				out.println("    </div>");
 				out.println("  </div>");
 				out.println("  <!-- Elements en dessous des deux colonnes -->");
 
-				out.println("  <br><strong>Détail de l'eau :</strong> " + prelevement.getConclusion() + "<br>");
+				out.println("  <br><strong>Détail de l'eau :</strong> " + StringEscapeUtils.escapeHtml4(prelevement.getConclusion()) + "<br>");
 				out.println("</div>");
 				out.println("</div></div></div>");
 				index++;

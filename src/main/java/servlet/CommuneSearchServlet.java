@@ -1,6 +1,7 @@
 package servlet;
 
 import java.util.ArrayList;
+import org.apache.commons.text.StringEscapeUtils;
 import dao.CommuneDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -58,7 +59,7 @@ public class CommuneSearchServlet extends HttpServlet {
 		  out.println("<option selected disabled>Choisissez votre commune</option>");
 		  // for each commune name, add an option
 		  for (String commune : listCommunes) {
-		      out.println("<option value='" + commune + "'>" + commune + "</option>");
+		      out.println("<option value='" + StringEscapeUtils.escapeHtml4(commune)+ "'>" + StringEscapeUtils.escapeHtml4(commune) + "</option>");
 		  }
 		  out.println("</select>");
 
