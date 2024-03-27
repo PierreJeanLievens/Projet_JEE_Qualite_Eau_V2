@@ -127,5 +127,42 @@ public class PrelevementDAO {
         
     }
     
+  public ArrayList<Prelevement> getPrelevementsByDept(String code_dept) throws SQLException {
+    	
+    	dbConnect();
+    	ResultatDAO resultatDao = new ResultatDAO(this.connection);
+        ArrayList<Prelevement> prelevements = new ArrayList<>();
+        String query = "SELECT DISTINCT prelevement.reference_prelevement, prelevement.*, commune.nom_commune \r\n"
+        		+ "FROM prelevement \r\n"
+        		+ "INNER JOIN commune ON commune.insee_commune = prelevement.insee_commune AND commune.cd_reseau = prelevement.cd_reseau\r\n"
+        		+ "WHERE prelevement.cd_dept = ?";
+        
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        	statement.setString(1, code_dept);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                Prelevement prelevement = new Prelevement(
+                	resultSet.getString("nom_commune"),
+                	resultSet.getString("insee_commune"),
+                    resultSet.getString("reference_prelevement"),
+                    resultSet.getString("cd_dept"),
+                    resultSet.getString("cd_reseau"),
+                    resultSet.getDate("date"),
+                    resultSet.getString("conclusion"),
+                    resultSet.getString("conform_bact"),
+                    resultSet.getString("conform_chim")
+                );
+                prelevements.add(prelevement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dbClose();
+        
+        return prelevements;
+        
+    }
+    
     // Vous pouvez ajouter d'autres méthodes (addResultat, updateResultat, deleteResultat) ici
 }

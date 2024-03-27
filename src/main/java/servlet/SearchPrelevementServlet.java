@@ -77,10 +77,14 @@ public class SearchPrelevementServlet extends HttpServlet {
 		int index = 0;
 		out.println("<h4>Recherche effectuée : " + StringEscapeUtils.escapeHtml4(selectedCommune) +"</h4>");
 		boolean displayNoData = true;
+		boolean conformBact;
+		boolean conformChim;
 		// for each COmmune
 		for (Commune commune : communes) {
 		    for (Prelevement prelevement : commune.getListPrelevements()) {
 		    	displayNoData= false;
+		    	conformBact = true;
+		    	conformChim =true;
 		        // Échapper les données sensibles
 		        String escapedCommune = StringEscapeUtils.escapeHtml4(selectedCommune);
 		        String escapedInseeCommune = StringEscapeUtils.escapeHtml4(prelevement.getInsee_commune());
@@ -113,18 +117,26 @@ public class SearchPrelevementServlet extends HttpServlet {
 		            escapedConformBact = "Conforme";
 		        } else if ("N".equals(prelevement.getConform_bact())) {
 		            escapedConformBact = "Non conforme";
+		            conformBact = false;
 		        }
+		        
 		        if ("C".equals(prelevement.getConform_chim())) {
 		            escapedConformChim = "Conforme";
 		        } else if ("N".equals(prelevement.getConform_chim())) {
 		            escapedConformChim = "Non conforme";
+		            conformChim = false;	
 		        }
 		        
 		        // Afficher les données échappées dans la réponse HTML
 		        out.println("<div class='accordion-item'>");
 		        out.println("<h2 class='accordion-header' id='heading" + index + "'>");
 		        out.println("<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse" + index + "' aria-expanded='true' aria-controls='collapse" + index + "'>");
+		       
 		        out.println("<strong>Ville :</strong> " + escapedCommune + ", <strong>Date de prélèvement :</strong> " + prelevement.getDate());
+		        // Display a red message for catch the user
+		        if (!conformBact || !conformChim) {
+		            out.print("<strong style='color: red;'> ------- Relevé non conforme</strong> ");
+		        }
 		        out.println("</button></h2>");
 		        out.println("<div id='collapse" + index + "' class='accordion-collapse collapse " + (index == 0 ? "show" : "") + "' aria-labelledby='heading" + index + "' data-bs-parent='#prelevementAccordion'>");
 		        out.println("<div class='accordion-body'>");
