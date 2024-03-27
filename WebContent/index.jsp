@@ -48,7 +48,7 @@ function selectCommune() {
 	    }
 	  });
 	}
-	
+// function to send the departement code to the servlet and get the asscociated data
 function selectDept(){
 	var selectedDept = $('#codeDeptInput').val();
 	$.ajax({
@@ -74,7 +74,7 @@ function selectDept(){
 
 <input type="text" placeholder="Recherchez une commune par nom ou code insee" id="nomCommuneInput" name="nomCommune" class="form-control">
 <div id="communeDropdownContainer"></div>
-<input type="text" placeholder="Entrez le code departement" id="codeDeptInput" name="codeDept" class="form-control" onChange="selectDept()">
+<input type="text" placeholder="Entrez le code departement (3 chiffres)" id="codeDeptInput" name="codeDept" class="form-control" onChange="selectDept()">
 </div>
 <hr>
 <div class="accordion accordion-flush" id="prelevementAccordion"></div>
