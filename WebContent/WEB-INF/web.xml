@@ -39,4 +39,14 @@
     <servlet-name>SearchPrelevementServlet</servlet-name>
     <url-pattern>/SearchPrelevementServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchPrelevementByDeptServlet</display-name>
+    <servlet-name>SearchPrelevementByDeptServlet</servlet-name>
+    <servlet-class>servlet.SearchPrelevementByDeptServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchPrelevementByDeptServlet</servlet-name>
+    <url-pattern>/SearchPrelevementByDeptServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

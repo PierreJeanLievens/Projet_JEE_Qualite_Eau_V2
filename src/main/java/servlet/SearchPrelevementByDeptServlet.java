@@ -22,13 +22,13 @@ import java.sql.SQLException;
  * @author PIERRE-JEAN
  * Servlet implementation class SearchPrelevementServlet
  */
-public class SearchPrelevementServlet extends HttpServlet {
+public class SearchPrelevementByDeptServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public SearchPrelevementServlet() {
+	public SearchPrelevementByDeptServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,52 +37,29 @@ public class SearchPrelevementServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*String selectedCommune = request.getParameter("selectedCommune");
-    	  PrelevementDAO prelevementDao = new PrelevementDAO();
-    	  ArrayList<Prelevement> prelevements = new ArrayList<>();
-    	  try {
-    	    prelevements = prelevementDao.getPrelevements(selectedCommune);
-    	  } catch (SQLException e) {
-    	    e.printStackTrace();
-    	  }
-
-    	  PrintWriter out = response.getWriter();
-    	  int index = 0;
-    	  for (Prelevement prelevement : prelevements) {
-    	    out.println("<div class='accordion-item'>");
-    	    out.println("<h2 class='accordion-header' id='heading" + index + "'>");
-    	    out.println("<button class='accordion-button' type='button' data-bs-toggle='collapse' data-bs-target='#collapse" + index + "' aria-expanded='true' aria-controls='collapse" + index + "'>");
-    	    out.println("Ville : " + selectedCommune + " Prelevement " + prelevement.getReference_prelevement()+ " Date : " + prelevement.getDate());
-    	    out.println("</button></h2>");
-    	    out.println("<div id='collapse" + index + "' class='accordion-collapse collapse " + (index == 0 ? "show" : "") + "' aria-labelledby='heading" + index + "' data-bs-parent='#prelevementAccordion'>");
-    	    out.println("<div class='accordion-body'>");
-    	    out.println("");
-    	    out.println("</div></div></div>");
-    	    index++;
-    	  }
-		 */
-		// get the selected commune full name
-		String selectedCommune = request.getParameter("selectedCommune");
+		
+		// get the selected departement code
+		String selectedDept = request.getParameter("selectedDept");
 		// create DAO and list of Commune
 		CommuneDAO communeDAO = new CommuneDAO();
 		ArrayList<Commune> communes = new ArrayList<>();
 
 		// get the list of Commune corresponding to the selected commune
 		try {
-			communes = communeDAO.getAllCommunesByName(selectedCommune);
+			communes = communeDAO.getAllCommunesByDept(selectedDept);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		PrintWriter out = response.getWriter();
 		int index = 0;
-		out.println("<h4>Recherche effectuée : " + StringEscapeUtils.escapeHtml4(selectedCommune) +"</h4>");
+		out.println("<h4>Recherche effectuée pour le departement : " + StringEscapeUtils.escapeHtml4(selectedDept) +"</h4>");
 		boolean displayNoData = true;
 		// for each COmmune
 		for (Commune commune : communes) {
 		    for (Prelevement prelevement : commune.getListPrelevements()) {
 		    	displayNoData= false;
 		        // Échapper les données sensibles
-		        String escapedCommune = StringEscapeUtils.escapeHtml4(selectedCommune);
+		        String escapedCommune = StringEscapeUtils.escapeHtml4(commune.getNom_commune());
 		        String escapedInseeCommune = StringEscapeUtils.escapeHtml4(prelevement.getInsee_commune());
 		        String escapedReseau = StringEscapeUtils.escapeHtml4(prelevement.getCd_reseau());
 		        String escapedQuartier = StringEscapeUtils.escapeHtml4(commune.getQuartier());

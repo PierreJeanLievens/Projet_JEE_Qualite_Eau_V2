@@ -17,7 +17,7 @@ public class Main {
 		ArrayList<Resultat> resultats;
 		ArrayList<Prelevement> prelevements;
 		CommuneDAO communeDao = new CommuneDAO();
-		ArrayList<Commune> communes = communeDao.getAllCommunesByName("LA ROCHELLE");
+		ArrayList<Commune> communes = communeDao.getAllCommunesByDept("085");
 		for (Commune commune : communes) {
 		    System.out.println("\nNom : " + commune.getNom_commune());
 		    prelevements = commune.getListPrelevements();

@@ -89,6 +89,50 @@ public class CommuneDAO {
         
     }
     /**
+     * Method to get all communes with the name
+     * @param nom_commune
+     * @return a list of Communes
+     * @throws SQLException
+     */
+    public ArrayList<Commune> getAllCommunesByDept(String code_dept) throws SQLException {
+        
+    	dbConnect();
+    	// Creation empty list
+    	ArrayList<Commune> communes = new ArrayList<>();
+    	// initialise PrelevementDAO with the current connection
+        PrelevementDAO prelevementDao = new PrelevementDAO(this.connection);
+        // Prepare the query
+        String query = "SELECT commune.* FROM commune INNER JOIN prelevement ON commune.insee_commune = prelevement.insee_commune WHERE cd_dept = ?";
+
+        
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        	statement.setString(1,code_dept );
+            ResultSet resultSet = statement.executeQuery();
+            // while there is a result
+            while (resultSet.next()) {
+            	// creation of a Commune object
+                Commune commune = new Commune(
+                	resultSet.getString("insee_commune"),
+                    resultSet.getString("nom_commune"),
+                    resultSet.getString("quartier"),
+                    resultSet.getString("cd_reseau"),
+                    resultSet.getString("nom_reseau"),
+                    resultSet.getDate("debut_alim"),
+                    prelevementDao.getAllResultats(resultSet.getString("insee_commune"), resultSet.getString("cd_reseau"))
+                );
+                // add the current commune to the list
+                communes.add(commune);
+            }
+        } catch (SQLException e) {
+        	throw new RuntimeException("uncaught", e) ;
+        }
+        // close the connection
+        dbClose();
+        return communes;
+        
+    }
+    
+    /**
      * Method to get only a list of names of communes who contains the parameter nom_commune
      * @param nom_commune
      * @return a list of String
@@ -98,8 +142,14 @@ public class CommuneDAO {
     	dbConnect();
     	// creation a empty list of String
     	ArrayList<String> listCommunes= new ArrayList<>();
+    	String query;
+    	if(nom_commune.matches(".*[0-9].*")) {
+    		query = "SELECT DISTINCT nom_commune FROM commune WHERE insee_commune LIKE ?";
+    	}else {
+    		query = "SELECT DISTINCT nom_commune FROM commune WHERE nom_commune LIKE ?";
+    	}
     	// prepare the query
-        String query = "SELECT DISTINCT nom_commune FROM commune WHERE nom_commune LIKE ?";
+        
 
         
         try (PreparedStatement statement = connection.prepareStatement(query)) {

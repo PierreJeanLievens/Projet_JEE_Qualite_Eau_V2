@@ -32,9 +32,9 @@ public class AddDataBase {
                 if (file.isFile() && file.getName().startsWith("DIS_COM")) {
                     AddCommunes(file.getAbsolutePath(), fileSqlCommune);
                 } else if (file.isFile() && file.getName().startsWith("DIS_PLV")) {
-                    //AddPrelevements(file.getAbsolutePath(), filePrelevement);
+                    AddPrelevements(file.getAbsolutePath(), filePrelevement);
                 } else if (file.isFile() && file.getName().startsWith("DIS_RESULT")) {
-                    //AddResultats(file.getAbsolutePath(), fileSqlResultat);
+                    AddResultats(file.getAbsolutePath(), fileSqlResultat);
                 }
             }
         }
@@ -109,7 +109,9 @@ public class AddDataBase {
 
                 String conclusion_prel = record.get(10).replace("\"", "").replace("'", "''").trim();
 
-                String sql = String.format("INSERT INTO prelevement (cd_dept, cd_reseau, insee_commune, reference_prelevement, date, heure, conclusion) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');\n", cd_dept, cd_reseau, insee_commune_princ, reference_prel, date_prel, heure_prel_formatted, conclusion_prel);
+                String conform_bact = record.get(14).replace("\"", "").replace("'", "''").trim();
+                String conform_chim = record.get(15).replace("\"", "").replace("'", "''").trim();
+                String sql = String.format("INSERT INTO prelevement (cd_dept, cd_reseau, insee_commune, reference_prelevement, date, heure, conclusion, conform_bact, conform_chim) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s');\n", cd_dept, cd_reseau, insee_commune_princ, reference_prel, date_prel, heure_prel_formatted, conclusion_prel, conform_bact, conform_chim);
                 writer.write(sql);
             }
         } catch (IOException e) {

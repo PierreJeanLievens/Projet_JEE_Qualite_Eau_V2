@@ -16,6 +16,8 @@ public class Prelevement {
 	private String cd_reseau;
 	private Date date;
 	private String conclusion;
+	private String conform_bact;
+	private String conform_chim;
 	private ArrayList<Resultat> ListResultats;
 
 	/**
@@ -27,15 +29,19 @@ public class Prelevement {
 	 * @param cd_reseau
 	 * @param date
 	 * @param conclusion
+	 * @param conform_bact
+	 * @param conform_chim
 	 * @param ListResultat
 	 */
-	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion, ArrayList<Resultat> ListResultat) {
+	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion, String conform_bact, String conform_chim, ArrayList<Resultat> ListResultat) {
 		this.insee_commune = insee_commune;
 		this.reference_prelevement = reference_prelevement;
 		this.cd_dept = cd_dept;
 		this.cd_reseau = cd_reseau;
 		this.date = date;
 		this.conclusion = conclusion;
+		this.conform_bact = conform_bact;
+		this.conform_chim = conform_chim;
 		this.ListResultats = ListResultat;
 	}
 
@@ -48,14 +54,19 @@ public class Prelevement {
 	 * @param cd_reseau
 	 * @param date
 	 * @param conclusion
+	 * @param conform_bact
+	 * @param conform_chim
 	 */
-	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion) {
+	public Prelevement(String insee_commune, String reference_prelevement, String cd_dept, String cd_reseau, Date date, String conclusion, String conform_bact, String conform_chim) {
 		this.insee_commune = insee_commune;
 		this.reference_prelevement = reference_prelevement;
 		this.cd_dept = cd_dept;
 		this.cd_reseau = cd_reseau;
 		this.date = date;
 		this.conclusion = conclusion;
+		this.conform_bact = conform_bact;
+		this.conform_chim = conform_chim;
+		
 	}
 
 	public String getInsee_commune() {
@@ -106,6 +117,23 @@ public class Prelevement {
 		this.conclusion = conclusion;
 	}
 
+	public String getConform_bact() {
+		return conform_bact;
+	}
+
+	public void setConform_bact(String conform_bact) {
+		this.conform_bact = conform_bact;
+	}
+
+	public String getConform_chim() {
+		return conform_chim;
+	}
+
+	public void setConform_chim(String conform_chim) {
+		this.conform_chim = conform_chim;
+	}
+
+	
 	public ArrayList<Resultat> getListResultats() {
 		return ListResultats;
 	}

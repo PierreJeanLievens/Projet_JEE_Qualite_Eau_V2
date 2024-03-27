@@ -48,6 +48,18 @@ function selectCommune() {
 	    }
 	  });
 	}
+	
+function selectDept(){
+	var selectedDept = $('#codeDeptInput').val();
+	$.ajax({
+	    url: 'SearchPrelevementByDeptServlet',
+	    method: 'GET',
+	    data: {selectedDept: selectedDept},
+	    success: function(responseText){
+	      $('#prelevementAccordion').html(responseText);
+	    }
+	  });
+}
 
 </script>
 <style>
@@ -60,8 +72,9 @@ function selectCommune() {
 <h2 class="text-align-center justify-content-center">Recherche de Commune</h2>
 <div class="container">
 
-<input type="text" placeholder="Recherchez une commune" id="nomCommuneInput" name="nomCommune" class="form-control">
+<input type="text" placeholder="Recherchez une commune par nom ou code insee" id="nomCommuneInput" name="nomCommune" class="form-control">
 <div id="communeDropdownContainer"></div>
+<input type="text" placeholder="Entrez le code departement" id="codeDeptInput" name="codeDept" class="form-control" onChange="selectDept()">
 </div>
 <hr>
 <div class="accordion accordion-flush" id="prelevementAccordion"></div>

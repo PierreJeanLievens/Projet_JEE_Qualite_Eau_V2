@@ -77,6 +77,8 @@ public class PrelevementDAO {
                     resultSet.getString("cd_reseau"),
                     resultSet.getDate("date"),
                     resultSet.getString("conclusion"),
+                    resultSet.getString("conform_bact"),
+                    resultSet.getString("conform_chim"),
                     resultatDao.getAllResultats(resultSet.getString("reference_prelevement"))
                 );
                 // add the current Prelevement to the list
@@ -110,7 +112,9 @@ public class PrelevementDAO {
                     resultSet.getString("cd_dept"),
                     resultSet.getString("cd_reseau"),
                     resultSet.getDate("date"),
-                    resultSet.getString("conclusion")
+                    resultSet.getString("conclusion"),
+                    resultSet.getString("conform_bact"),
+                    resultSet.getString("conform_chim")
                 );
                 prelevements.add(prelevement);
             }

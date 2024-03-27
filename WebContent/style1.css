@@ -6,7 +6,7 @@ body {
     display: inline-block;
     vertical-align: top;
     width: auto; /* Ajustez selon vos besoins */
-    min-width : 300px;
+    min-width : 400px;
   }
   select {
     width: 100%;
